@@ -15,8 +15,8 @@
 
 body{
     background:linear-gradient(135deg,#ff9a9e,#ff758c,#ff7eb3);
-    height:100vh;
-    overflow:hidden;
+    min-height:100vh;
+    overflow-x:hidden;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -33,6 +33,8 @@ body{
     z-index:10;
     opacity:0;
     touch-action: pan-y;
+    overflow-y:auto;
+    padding-top:20px;
 }
 
 .active{
@@ -179,12 +181,20 @@ h1{
 @media (max-width: 720px) {
     body{
         min-height:100vh;
+        height:auto;
         padding:20px 0;
+    }
+
+    .page{
+        align-items:flex-start;
+        justify-content:flex-start;
+        padding-top:30px;
     }
 
     .card{
         padding:24px;
         width:min(94vw,400px);
+        margin:0 auto;
     }
 
     h1{

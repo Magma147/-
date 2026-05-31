@@ -308,7 +308,26 @@ document.addEventListener('visibilitychange', () => {
     }
 });
 
+function openInChrome(){
+    const ua = navigator.userAgent || '';
+    const isInstagram = /Instagram/.test(ua);
+    const isAndroid = /Android/.test(ua);
+    const isIOS = /iPhone|iPad|iPod/.test(ua);
+    if (!isInstagram) return;
+
+    const url = window.location.href;
+    if (isAndroid) {
+        const intentUrl = 'intent://' + url.replace(/^https?:\/\//, '') + '#Intent;package=com.android.chrome;scheme=https;end';
+        window.location.href = intentUrl;
+    } else if (isIOS) {
+        window.location.href = url.replace(/^https?:\/\//, 'googlechrome://');
+    }
+}
+
+document.addEventListener('DOMContentLoaded', openInChrome);
+
 function playMusic(){
+
     if (!bgMusic) return;
     bgMusic.volume = 0.8;
     if (bgMusic.duration > hookStart) {

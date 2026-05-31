@@ -26,6 +26,7 @@ body{
     position:absolute;
     inset:0;
     display:none;
+    flex-direction:column;
     align-items:center;
     justify-content:center;
     text-align:center;
@@ -208,7 +209,7 @@ h1{
     }
 
     .buttons{
-        flex-direction:column;
+        flex-wrap:wrap;
         gap:14px;
     }
 }
@@ -323,7 +324,7 @@ function login(){
     let name = document.getElementById("name").value;
     let password = document.getElementById("password").value;
 
-    if(name !== "ริส" || password !== "140849"){
+    if(name !== "1" || password !== "1234"){
         alert("ชื่อหรือรหัสผ่านไม่ถูกต้อง");
         return;
     }

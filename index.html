@@ -39,13 +39,9 @@ body{
 
 .active{
     display:flex;
-    animation:fadeIn 0.6s ease-in-out forwards;
+    opacity:1;
 }
 
-.page.fade-out,
-#buttonsContainer.fade-out{
-    animation:fadeOut 0.6s ease-in-out forwards;
-}
 
 .card{
     background:white;
@@ -64,12 +60,9 @@ body{
 }
 
 #resultMessage{
-    opacity:0;
+    opacity:1;
 }
 
-#resultMessage.fade-in{
-    animation:fadeIn 0.6s ease-in-out forwards;
-}
 
 .card h2{
     color:#ff4d88;
@@ -328,14 +321,10 @@ function login(){
 
     const page1 = document.getElementById("page1");
     const page2 = document.getElementById("page2");
-    
-    page1.classList.add("fade-out");
-    
-    setTimeout(() => {
-        page1.classList.remove("active", "fade-out");
-        page2.classList.add("active");
-        playMusic();
-    }, 800);
+
+    page1.classList.remove("active");
+    page2.classList.add("active");
+    playMusic();
 
     document.getElementById("sweetText").innerHTML = `
         ถึง ${name} ❤️<br><br>
@@ -355,12 +344,8 @@ function switchPage(fromId, toId){
     const fromPage = document.getElementById(fromId);
     const toPage = document.getElementById(toId);
 
-    fromPage.classList.add("fade-out");
-
-    setTimeout(() => {
-        fromPage.classList.remove("active", "fade-out");
-        toPage.classList.add("active");
-    }, 600);
+    fromPage.classList.remove("active");
+    toPage.classList.add("active");
 }
 
 function nextPage(){
@@ -398,20 +383,15 @@ function yesAnswer(){
     const buttonsContainer = document.getElementById('buttonsContainer');
     const resultMessage = document.getElementById('resultMessage');
     
-    buttonsContainer.classList.add("fade-out");
-    
-    setTimeout(() => {
-        buttonsContainer.style.display = 'none';
-        resultMessage.style.display = 'block';
-        resultMessage.innerHTML = `
-            <h1> ขอบคุณที่ให้โอกาศนะ </h1>
-            <p>จากนี้ขอเก็บทุกครั้งที่เราได้หัวเราะ ได้คุยกัน และได้อยู่ด้วยกันไว้ในหัวใจ</p>
-            <p>เธอเป็นคนพิเศษสำหรับฉันที่สุด ❤️</p>
-            <p>ยินดีต้อนรับเข้าสู่เรื่องราวความรักที่เราจะเขียนร่วมกัน 💖</p>
-        `;
-        resultMessage.classList.add("fade-in");
-        playMusic();
-    }, 800);
+    buttonsContainer.style.display = 'none';
+    resultMessage.style.display = 'block';
+    resultMessage.innerHTML = `
+        <h1> ขอบคุณที่ให้โอกาศนะ </h1>
+        <p>จากนี้ขอเก็บทุกครั้งที่เราได้หัวเราะ ได้คุยกัน และได้อยู่ด้วยกันไว้ในหัวใจ</p>
+        <p>เธอเป็นคนพิเศษสำหรับฉันที่สุด ❤️</p>
+        <p>ยินดีต้อนรับเข้าสู่เรื่องราวความรักที่เราจะเขียนร่วมกัน 💖</p>
+    `;
+    playMusic();
 }
 
 function noAnswer(){
@@ -419,22 +399,17 @@ function noAnswer(){
     const buttonsContainer = document.getElementById('buttonsContainer');
     const resultMessage = document.getElementById('resultMessage');
     
-    buttonsContainer.classList.add("fade-out");
-    
-    setTimeout(() => {
-        pageTitle.textContent = '💔 ขอบคุณที่ให้ความรู้สึก 💔';
-        buttonsContainer.style.display = 'none';
-        resultMessage.style.display = 'block';
-        resultMessage.innerHTML = `
-            <p>ถึงคำตอบจะไม่ใช่อย่างที่หวัง</p>
-            <p>แต่เราก็ยังดีใจที่ได้บอกความรู้สึกทั้งหมดออกไป</p>
-            <p>ขอบคุณที่เข้ามาเป็นรอยยิ้ม เป็นความสุข</p>
-            <p>และเป็นความทรงจำดี ๆ ในชีวิตของเรา</p>
-            <p>แม้วันนี้เราจะยังไม่ใช่คู่ชีวิตกัน แต่วินาทีนี้ทำให้ฉันกล้าหวัง และกล้ารักอย่างจริงใจ</p>
-        `;
-        resultMessage.classList.add("fade-in");
-        playMusic();
-    }, 800);
+    pageTitle.textContent = '💔 ขอบคุณที่ให้ความรู้สึก 💔';
+    buttonsContainer.style.display = 'none';
+    resultMessage.style.display = 'block';
+    resultMessage.innerHTML = `
+        <p>ถึงคำตอบจะไม่ใช่อย่างที่หวัง</p>
+        <p>แต่เราก็ยังดีใจที่ได้บอกความรู้สึกทั้งหมดออกไป</p>
+        <p>ขอบคุณที่เข้ามาเป็นรอยยิ้ม เป็นความสุข</p>
+        <p>และเป็นความทรงจำดี ๆ ในชีวิตของเรา</p>
+        <p>แม้วันนี้เราจะยังไม่ใช่คู่ชีวิตกัน แต่วินาทีนี้ทำให้ฉันกล้าหวัง และกล้ารักอย่างจริงใจ</p>
+    `;
+    playMusic();
 }
 
 const noBtn = document.getElementById("noBtn");

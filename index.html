@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>สำหรับคนพิเศษ ❤️</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#ff9a9e,#ff758c,#ff7eb3);
+    height:100vh;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.page{
+    display:none;
+    text-align:center;
+    color:white;
+    z-index:10;
+}
+
+.active{
+    display:block;
+}
+
+.card{
+    background:white;
+    color:#333;
+    padding:35px;
+    border-radius:25px;
+    width:350px;
+    box-shadow:0 10px 30px rgba(0,0,0,.2);
+}
+
+.card h2{
+    color:#ff4d88;
+    margin-bottom:20px;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:1px solid #ddd;
+    border-radius:12px;
+    outline:none;
+}
+
+button{
+    border:none;
+    border-radius:50px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.btn{
+    background:#ff4d88;
+    color:white;
+    padding:12px 30px;
+    font-size:18px;
+}
+
+.btn:hover{
+    transform:scale(1.05);
+}
+
+h1{
+    font-size:55px;
+    text-shadow:0 0 15px rgba(255,255,255,.7);
+}
+
+.sweet{
+    max-width:700px;
+    font-size:24px;
+    line-height:1.8;
+    padding:20px;
+}
+
+.buttons{
+    margin-top:30px;
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    position:relative;
+}
+
+.yes{
+    background:#ff4d88;
+    color:white;
+    padding:15px 45px;
+    font-size:24px;
+}
+
+.no{
+    background:white;
+    color:#ff4d88;
+    padding:15px 45px;
+    font-size:24px;
+    position:relative;
+}
+
+.heart{
+    position:fixed;
+    bottom:-50px;
+    animation:float linear forwards;
+    pointer-events:none;
+}
+
+@keyframes float{
+    from{
+        transform:translateY(0);
+        opacity:1;
+    }
+    to{
+        transform:translateY(-120vh);
+        opacity:0;
+    }
+}
+</style>
+</head>
+<body>
+
+<audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- LOGIN -->
+<div class="page active" id="page1">
+    <div class="card">
+        <h2>💖 เข้าสู่หัวใจของเรา 💖</h2>
+        <p style="color:#555; font-size:16px; line-height:1.7; margin-bottom:18px;">กรอกชื่อและรหัสผ่านเพื่อเปิดประตูไปยังคำพูดซึ้ง ๆ ที่เราเตรียมไว้ให้คุณโดยเฉพาะ</p>
+        <input type="text" id="name" placeholder="ชื่อ">
+
+        <input type="password" id="password" placeholder="รหัสผ่าน">
+
+        <button class="btn" onclick="login()">
+            เข้าสู่ระบบ ❤️
+        </button>
+    </div>
+</div>
+
+<!-- SWEET -->
+<div class="page" id="page2">
+    <h1>💞</h1>
+
+    <div class="sweet" id="sweetText"></div>
+
+    <br>
+
+    <button class="btn" onclick="nextPage()">
+        ต่อไป ➜
+    </button>
+</div>
+
+<!-- QUESTION -->
+<div class="page" id="page3">
+    <h1>❤️ เป็นแฟนกันมั้ย ❤️</h1>
+
+    <div class="buttons" id="buttonsContainer">
+        <button class="yes" onclick="yesAnswer()">
+            เป็น 💖
+        </button>
+
+        <button class="no" id="noBtn" onclick="noAnswer()">
+            ไม่เป็น 😢
+        </button>
+    </div>
+    <div id="resultMessage" class="sweet" style="display:none; margin-top:20px; color:white; background:rgba(255,255,255,0.12); border-radius:20px; padding:18px;"></div>
+</div>
+
+<script>
+
+const bgMusic = document.getElementById('bgMusic');
+const hookStart = 149; // เริ่มท่อนที่นาที 2:29 (149 วินาที)
+const hookEnd = 180; // จบท่อนที่นาที 3:00 (180 วินาที)
+
+if (bgMusic) {
+    bgMusic.loop = false;
+    bgMusic.addEventListener('loadedmetadata', () => {
+        if (bgMusic.duration > hookStart) {
+            bgMusic.currentTime = hookStart;
+        }
+    });
+
+    bgMusic.addEventListener('timeupdate', () => {
+        if (bgMusic.currentTime >= hookEnd) {
+            bgMusic.currentTime = hookStart;
+        }
+    });
+}
+
+function playMusic(){
+    if (!bgMusic) return;
+    bgMusic.volume = 0.8;
+    if (bgMusic.duration > hookStart) {
+        bgMusic.currentTime = hookStart;
+    }
+    bgMusic.play().catch(() => {
+        // Autoplay may be blocked; it will start when the user interacts.
+    });
+}
+
+function login(){
+
+    let name = document.getElementById("name").value;
+    let password = document.getElementById("password").value;
+
+    if(name !== "ริส"){
+        alert("ขออภัย ชื่อไม่ถูกต้อง เข้าสู่ระบบได้เฉพาะ ริส เท่านั้น");
+        return;
+    }
+
+    if(password === "140849"){
+
+        document.getElementById("page1").classList.remove("active");
+        document.getElementById("page2").classList.add("active");
+
+        playMusic();
+
+        document.getElementById("sweetText").innerHTML = `
+        ถึง ${name} ❤️<br><br>
+
+        ทุกครั้งที่คิดถึงเธอ หัวใจของฉันจะอุ่นขึ้นเหมือนมีแสงดาวส่องในคืนที่มืดมิด ✨<br><br>
+
+        เธอทำให้เรื่องธรรมดาๆ กลายเป็นความพิเศษ และทำให้วันที่เหนื่อยล้ากลับมีรอยยิ้มบริสุทธิ์ 😊<br><br>
+
+        ขอบคุณที่อยู่ตรงนี้ ทั้งที่ไม่ได้ขอ และขอบคุณที่ทำให้ฉันกล้าพูดความรู้สึกทั้งหมดออกไป 💕<br><br>
+
+        ในใจฉันมีคำถามหนึ่งที่เก็บไว้นานมาก...<br>
+        วันนี้อยากให้เธอได้ยินมันอย่างเต็มคำ ❤️
+        `;
+    }
+    else{
+        alert("รหัสผ่านไม่ถูกต้อง");
+    }
+}
+
+function nextPage(){
+    document.getElementById("page2").classList.remove("active");
+    document.getElementById("page3").classList.add("active");
+}
+
+function yesAnswer(){
+    const resultMessage = document.getElementById('resultMessage');
+    document.getElementById('buttonsContainer').style.display = 'none';
+    resultMessage.style.display = 'block';
+    resultMessage.innerHTML = `
+        <h1> ขอบคุณที่ให้โอกาศนะ </h1>
+        <p>จากนี้ขอเก็บทุกครั้งที่เราได้หัวเราะ ได้คุยกัน และได้อยู่ด้วยกันไว้ในหัวใจ</p>
+        <p>เธอเป็นคนพิเศษสำหรับฉันที่สุด ❤️</p>
+        <p>ยินดีต้อนรับเข้าสู่เรื่องราวความรักที่เราจะเขียนร่วมกัน 💖</p>
+    `;
+    playMusic();
+}
+
+function noAnswer(){
+    const pageTitle = document.querySelector('#page3 h1');
+    const resultMessage = document.getElementById('resultMessage');
+    pageTitle.textContent = '💔 ขอบคุณที่ให้ความรู้สึก 💔';
+    document.getElementById('buttonsContainer').style.display = 'none';
+    resultMessage.style.display = 'block';
+    resultMessage.innerHTML = `
+        <p>ถึงคำตอบจะไม่ใช่อย่างที่หวัง</p>
+        <p>แต่เราก็ยังดีใจที่ได้บอกความรู้สึกทั้งหมดออกไป</p>
+        <p>ขอบคุณที่เข้ามาเป็นรอยยิ้ม เป็นความสุข</p>
+        <p>และเป็นความทรงจำดี ๆ ในชีวิตของเรา</p>
+        <p>แม้วันนี้เราจะยังไม่ใช่คู่ชีวิตกัน แต่วินาทีนี้ทำให้ฉันกล้าหวัง และกล้ารักอย่างจริงใจ</p>
+    `;
+    playMusic();
+}
+
+const noBtn = document.getElementById("noBtn");
+
+noBtn.addEventListener("mouseover",()=>{
+    const x = Math.random() * 20 - 10;
+    const y = Math.random() * 10 - 5;
+    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+});
+
+function createHeart(){
+
+    const heart=document.createElement("div");
+
+    heart.className="heart";
+    heart.innerHTML="❤️";
+
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.fontSize=(20+Math.random()*40)+"px";
+    heart.style.animationDuration=(4+Math.random()*4)+"s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{
+        heart.remove();
+    },8000);
+}
+
+setInterval(createHeart,250);
+
+</script>
+
+</body>
+</html>

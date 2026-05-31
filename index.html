@@ -215,19 +215,17 @@ function login(){
     let name = document.getElementById("name").value;
     let password = document.getElementById("password").value;
 
-    if(name !== "ริส"){
-        alert("ขออภัย ชื่อไม่ถูกต้อง เข้าสู่ระบบได้เฉพาะ ริส เท่านั้น");
+    if(name !== "ริส" || password !== "140849"){
+        alert("ชื่อหรือรหัสผ่านไม่ถูกต้อง");
         return;
     }
 
-    if(password === "140849"){
+    document.getElementById("page1").classList.remove("active");
+    document.getElementById("page2").classList.add("active");
 
-        document.getElementById("page1").classList.remove("active");
-        document.getElementById("page2").classList.add("active");
+    playMusic();
 
-        playMusic();
-
-        document.getElementById("sweetText").innerHTML = `
+    document.getElementById("sweetText").innerHTML = `
         ถึง ${name} ❤️<br><br>
 
         ทุกครั้งที่คิดถึงเธอ หัวใจของฉันจะอุ่นขึ้นเหมือนมีแสงดาวส่องในคืนที่มืดมิด ✨<br><br>
@@ -239,10 +237,6 @@ function login(){
         ในใจฉันมีคำถามหนึ่งที่เก็บไว้นานมาก...<br>
         วันนี้อยากให้เธอได้ยินมันอย่างเต็มคำ ❤️
         `;
-    }
-    else{
-        alert("รหัสผ่านไม่ถูกต้อง");
-    }
 }
 
 function nextPage(){

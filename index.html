@@ -181,15 +181,9 @@ h1{
         padding:20px 0;
     }
 
-    .page{
-        align-items:flex-start;
-        justify-content:flex-start;
-        padding-top:30px;
-    }
-
     .card{
         padding:24px;
-        width:min(94vw,400px);
+        width:min(92vw,420px);
         margin:0 auto;
     }
 
@@ -286,6 +280,8 @@ const bgMusic = document.getElementById('bgMusic');
 const hookStart = 149; // เริ่มท่อนที่นาที 2:29 (149 วินาที)
 const hookEnd = 180; // จบท่อนที่นาที 3:00 (180 วินาที)
 
+let musicWasPlaying = false;
+
 if (bgMusic) {
     bgMusic.loop = false;
     bgMusic.addEventListener('loadedmetadata', () => {
@@ -300,6 +296,16 @@ if (bgMusic) {
         }
     });
 }
+
+document.addEventListener('visibilitychange', () => {
+    if (!bgMusic) return;
+    if (document.hidden) {
+        musicWasPlaying = !bgMusic.paused;
+        bgMusic.pause();
+    } else if (musicWasPlaying) {
+        bgMusic.play().catch(() => {});
+    }
+});
 
 function playMusic(){
     if (!bgMusic) return;

@@ -34,7 +34,10 @@ body{
     opacity:0;
     touch-action: pan-y;
     overflow-y:auto;
+    -webkit-overflow-scrolling: touch;
+    max-height:100vh;
     padding-top:20px;
+    padding-bottom:40px;
 }
 
 .active{
@@ -352,32 +355,7 @@ function nextPage(){
     switchPage("page2", "page3");
 }
 
-function handleSwipe(fromPage, toPage){
-    if (!fromPage || !toPage) return;
-    switchPage(fromPage, toPage);
-}
 
-let touchStartY = 0;
-let touchEndY = 0;
-
-document.addEventListener('touchstart', (event) => {
-    touchStartY = event.changedTouches[0].screenY;
-});
-
-document.addEventListener('touchend', (event) => {
-    touchEndY = event.changedTouches[0].screenY;
-    const currentPage = document.querySelector('.page.active');
-    const deltaY = touchStartY - touchEndY;
-
-    if (Math.abs(deltaY) < 50 || !currentPage) return;
-
-    if (deltaY > 0) {
-        if (currentPage.id === 'page2') handleSwipe('page2', 'page3');
-    } else {
-        if (currentPage.id === 'page3') handleSwipe('page3', 'page2');
-        if (currentPage.id === 'page2') handleSwipe('page2', 'page1');
-    }
-});
 
 function yesAnswer(){
     const buttonsContainer = document.getElementById('buttonsContainer');

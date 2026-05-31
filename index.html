@@ -27,10 +27,25 @@ body{
     text-align:center;
     color:white;
     z-index:10;
+    opacity:0;
 }
 
 .active{
     display:block;
+    animation:fadeIn 0.8s ease-in-out forwards;
+}
+
+.page.fade-out,
+#buttonsContainer.fade-out{
+    animation:fadeOut 0.8s ease-in-out forwards;
+}
+
+#resultMessage{
+    opacity:0;
+}
+
+#resultMessage.fade-in{
+    animation:fadeIn 0.8s ease-in-out forwards;
 }
 
 .card{
@@ -123,6 +138,24 @@ h1{
     }
     to{
         transform:translateY(-120vh);
+        opacity:0;
+    }
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+    }
+    to{
+        opacity:1;
+    }
+}
+
+@keyframes fadeOut{
+    from{
+        opacity:1;
+    }
+    to{
         opacity:0;
     }
 }
@@ -220,10 +253,16 @@ function login(){
         return;
     }
 
-    document.getElementById("page1").classList.remove("active");
-    document.getElementById("page2").classList.add("active");
-
-    playMusic();
+    const page1 = document.getElementById("page1");
+    const page2 = document.getElementById("page2");
+    
+    page1.classList.add("fade-out");
+    
+    setTimeout(() => {
+        page1.classList.remove("active", "fade-out");
+        page2.classList.add("active");
+        playMusic();
+    }, 800);
 
     document.getElementById("sweetText").innerHTML = `
         ถึง ${name} ❤️<br><br>
@@ -240,37 +279,58 @@ function login(){
 }
 
 function nextPage(){
-    document.getElementById("page2").classList.remove("active");
-    document.getElementById("page3").classList.add("active");
+    const page2 = document.getElementById("page2");
+    const page3 = document.getElementById("page3");
+    
+    page2.classList.add("fade-out");
+    
+    setTimeout(() => {
+        page2.classList.remove("active", "fade-out");
+        page3.classList.add("active");
+    }, 800);
 }
 
 function yesAnswer(){
+    const buttonsContainer = document.getElementById('buttonsContainer');
     const resultMessage = document.getElementById('resultMessage');
-    document.getElementById('buttonsContainer').style.display = 'none';
-    resultMessage.style.display = 'block';
-    resultMessage.innerHTML = `
-        <h1> ขอบคุณที่ให้โอกาศนะ </h1>
-        <p>จากนี้ขอเก็บทุกครั้งที่เราได้หัวเราะ ได้คุยกัน และได้อยู่ด้วยกันไว้ในหัวใจ</p>
-        <p>เธอเป็นคนพิเศษสำหรับฉันที่สุด ❤️</p>
-        <p>ยินดีต้อนรับเข้าสู่เรื่องราวความรักที่เราจะเขียนร่วมกัน 💖</p>
-    `;
-    playMusic();
+    
+    buttonsContainer.classList.add("fade-out");
+    
+    setTimeout(() => {
+        buttonsContainer.style.display = 'none';
+        resultMessage.style.display = 'block';
+        resultMessage.innerHTML = `
+            <h1> ขอบคุณที่ให้โอกาศนะ </h1>
+            <p>จากนี้ขอเก็บทุกครั้งที่เราได้หัวเราะ ได้คุยกัน และได้อยู่ด้วยกันไว้ในหัวใจ</p>
+            <p>เธอเป็นคนพิเศษสำหรับฉันที่สุด ❤️</p>
+            <p>ยินดีต้อนรับเข้าสู่เรื่องราวความรักที่เราจะเขียนร่วมกัน 💖</p>
+        `;
+        resultMessage.classList.add("fade-in");
+        playMusic();
+    }, 800);
 }
 
 function noAnswer(){
     const pageTitle = document.querySelector('#page3 h1');
+    const buttonsContainer = document.getElementById('buttonsContainer');
     const resultMessage = document.getElementById('resultMessage');
-    pageTitle.textContent = '💔 ขอบคุณที่ให้ความรู้สึก 💔';
-    document.getElementById('buttonsContainer').style.display = 'none';
-    resultMessage.style.display = 'block';
-    resultMessage.innerHTML = `
-        <p>ถึงคำตอบจะไม่ใช่อย่างที่หวัง</p>
-        <p>แต่เราก็ยังดีใจที่ได้บอกความรู้สึกทั้งหมดออกไป</p>
-        <p>ขอบคุณที่เข้ามาเป็นรอยยิ้ม เป็นความสุข</p>
-        <p>และเป็นความทรงจำดี ๆ ในชีวิตของเรา</p>
-        <p>แม้วันนี้เราจะยังไม่ใช่คู่ชีวิตกัน แต่วินาทีนี้ทำให้ฉันกล้าหวัง และกล้ารักอย่างจริงใจ</p>
-    `;
-    playMusic();
+    
+    buttonsContainer.classList.add("fade-out");
+    
+    setTimeout(() => {
+        pageTitle.textContent = '💔 ขอบคุณที่ให้ความรู้สึก 💔';
+        buttonsContainer.style.display = 'none';
+        resultMessage.style.display = 'block';
+        resultMessage.innerHTML = `
+            <p>ถึงคำตอบจะไม่ใช่อย่างที่หวัง</p>
+            <p>แต่เราก็ยังดีใจที่ได้บอกความรู้สึกทั้งหมดออกไป</p>
+            <p>ขอบคุณที่เข้ามาเป็นรอยยิ้ม เป็นความสุข</p>
+            <p>และเป็นความทรงจำดี ๆ ในชีวิตของเรา</p>
+            <p>แม้วันนี้เราจะยังไม่ใช่คู่ชีวิตกัน แต่วินาทีนี้ทำให้ฉันกล้าหวัง และกล้ารักอย่างจริงใจ</p>
+        `;
+        resultMessage.classList.add("fade-in");
+        playMusic();
+    }, 800);
 }
 
 const noBtn = document.getElementById("noBtn");
